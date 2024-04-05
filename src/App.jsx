@@ -1,16 +1,6 @@
 import { useEffect, useState } from 'react'
 import styles from './App.module.css'
-import {
-  Searcher,
-  Sorting,
-  Form,
-  Tasks,
-  Loader,
-  ButtonAdd,
-  ButtonUpdate,
-  ButtonDelete,
-  Message,
-} from './components'
+import { AddFunctional, Form, Tasks, Loader, Buttons, Message } from './components'
 
 //actionFlags: add - true, delete - false, update - null
 
@@ -50,34 +40,24 @@ const App = () => {
     <>
       <div className={styles.wrapper}>
         <div className={styles.taskHeaders}> Лист задач </div>
-        {/* <Buttons> */}
-        <div className={styles.flexButtons}>
-          <ButtonAdd actionFlag={actionFlag} setActionFlag={setActionFlag}></ButtonAdd>
-          <ButtonUpdate
-            actionFlag={actionFlag}
-            setActionFlag={setActionFlag}
-            setIdTask={setIdTask}
-          ></ButtonUpdate>
-          <ButtonDelete
-            actionFlag={actionFlag}
-            setActionFlag={setActionFlag}
-          ></ButtonDelete>
-        </div>
+        <Buttons
+          actionFlag={actionFlag}
+          setActionFlag={setActionFlag}
+          setIdTask={setIdTask}
+        />
         <Form
           actionFlag={actionFlag}
           setActionFlag={setActionFlag}
           refreshTasks={refreshTasks}
           idTask={idTask}
-        ></Form>
+        />
         <Message id={idTask} actionFlag={actionFlag}></Message>
-        {/* <AddFunctional> */}
-        <div className={styles.addFunctional}>
-          <Searcher
-            initialInputValue={initialInputValue}
-            setInitialInputValue={setInitialInputValue}
-          />
-          <Sorting sortOn={sortOn} setSortOn={setSortOn} />
-        </div>
+        <AddFunctional
+          initialInputValue={initialInputValue}
+          setInitialInputValue={setInitialInputValue}
+          sortOn={sortOn}
+          setSortOn={setSortOn}
+        />
         {isLoading ? (
           <Loader />
         ) : (
