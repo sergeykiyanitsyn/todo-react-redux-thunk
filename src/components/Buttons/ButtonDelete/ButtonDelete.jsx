@@ -1,18 +1,22 @@
 import styles from './Button.module.css'
 import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
 
-export const ButtonDelete = ({ actionFlag, setActionFlag }) => {
+export const ButtonDelete = () => {
+  const { crudMode } = useSelector((state) => state.crudOperationMode)
+  const dispatch = useDispatch()
+
   const handleClick = () => {
-    if (actionFlag !== false) {
-      setActionFlag(false)
+    if (crudMode !== 'DEL') {
+      dispatch({ type: 'DEL_MODE' })
     } else {
-      setActionFlag('')
+      dispatch({ type: 'CHILL_MODE' })
     }
   }
 
   return (
     <>
-      {actionFlag === false ? (
+      {crudMode === 'DEL' ? (
         <button className={styles.button} onClick={handleClick}>
           Отменить
         </button>

@@ -1,25 +1,20 @@
 import styles from './Searcher.module.css'
-import PropTypes from 'prop-types'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+// import debounce from 'lodash/debounce'
 
-export const Searcher = ({ initialInputValue, setInitialInputValue }) => {
-  const [inputText, setInputText] = useState(initialInputValue)
+export const Searcher = () => {
+  const searchWord = useSelector((state) => state.searcher)
+  const dispatch = useDispatch()
+  const [inputText, setInputText] = useState(searchWord)
 
   const onChangeFinder = ({ target }) => {
-    if (!target.value) {
-      setInitialInputValue(target.value.trim())
-    }
+    dispatch({ type: 'SET_SEARCHER_WORD', payload: target.value.trim() })
     setInputText(target.value.trim())
   }
 
-  const findTasks = (event) => {
-    event.preventDefault()
-    const sendText = event.target[0].value
-    setInitialInputValue(sendText)
-  }
-
   return (
-    <form className={styles.search} onSubmit={findTasks}>
+    <form className={styles.search}>
       <input
         className={styles.searchString}
         type="text"
@@ -29,9 +24,4 @@ export const Searcher = ({ initialInputValue, setInitialInputValue }) => {
       />
     </form>
   )
-}
-
-Searcher.propTypes = {
-  initialInputValue: PropTypes.any,
-  setInitialInputValue: PropTypes.any,
 }

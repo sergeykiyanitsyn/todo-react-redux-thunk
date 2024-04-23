@@ -1,27 +1,10 @@
 import { Searcher } from './Seracher'
 import { Sorting } from './Sorting'
-import PropTypes from 'prop-types'
-
 import styles from './AddFunctional.module.css'
 
-export const AddFunctional = ({
-  initialInputValue,
-  setInitialInputValue,
-  sortOn,
-  setSortOn,
-}) => (
+export const AddFunctional = () => (
   <div className={styles.addFunctional}>
-    <Searcher
-      initialInputValue={initialInputValue}
-      setInitialInputValue={setInitialInputValue}
-    />
-    <Sorting sortOn={sortOn} setSortOn={setSortOn} />
+    <Searcher />
+    <Sorting />
   </div>
 )
-
-AddFunctional.propTypes = {
-  initialInputValue: PropTypes.any,
-  setInitialInputValue: PropTypes.any,
-  sortOn: PropTypes.bool,
-  setSortOn: PropTypes.any,
-}

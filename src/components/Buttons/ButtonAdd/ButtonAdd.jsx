@@ -1,17 +1,21 @@
 import styles from './Button.module.css'
 import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
 
-export const ButtonAdd = ({ actionFlag, setActionFlag }) => {
+export const ButtonAdd = () => {
+  const { crudMode } = useSelector((state) => state.crudOperationMode)
+  const dispatch = useDispatch()
+
   const handleClick = () => {
-    if (actionFlag !== true) {
-      setActionFlag(true)
+    if (crudMode !== 'ADD') {
+      dispatch({ type: 'ADD_MODE' })
     } else {
-      setActionFlag('')
+      dispatch({ type: 'CHILL_MODE' })
     }
   }
   return (
     <>
-      {actionFlag === true ? (
+      {crudMode === 'ADD' ? (
         <button className={styles.button} onClick={handleClick}>
           Отменить
         </button>

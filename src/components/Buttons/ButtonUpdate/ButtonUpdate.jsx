@@ -1,19 +1,23 @@
 import styles from './Button.module.css'
 import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
 
-export const ButtonUpdate = ({ actionFlag, setActionFlag, setIdTask }) => {
+export const ButtonUpdate = () => {
+  const { crudMode } = useSelector((state) => state.crudOperationMode)
+  const dispatch = useDispatch()
+
   const handleClick = () => {
-    if (actionFlag !== null) {
-      setActionFlag(null)
+    if (crudMode !== 'UPD') {
+      dispatch({ type: 'UPD_MODE' })
     } else {
-      setActionFlag('')
-      setIdTask(null)
+      dispatch({ type: 'CHILL_MODE' })
+      dispatch({ type: 'SAVE_CURRENT_TASK_ID', payload: '' })
     }
   }
 
   return (
     <>
-      {actionFlag === null ? (
+      {crudMode === 'UPD' ? (
         <button className={styles.button} onClick={handleClick}>
           Отменить
         </button>

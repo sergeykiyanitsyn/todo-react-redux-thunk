@@ -1,23 +1,23 @@
-import PropTypes from 'prop-types'
 import { ButtonAdd } from './ButtonAdd/ButtonAdd'
 import { ButtonUpdate } from './ButtonUpdate/ButtonUpdate'
 import { ButtonDelete } from './ButtonDelete/ButtonDelete'
+import { FormUpdateTask } from './Form'
 import styles from './Button.module.css'
+import { useSelector } from 'react-redux'
 
-export const Buttons = ({ actionFlag, setActionFlag, setIdTask }) => (
-  <div className={styles.flexButtons}>
-    <ButtonAdd actionFlag={actionFlag} setActionFlag={setActionFlag}></ButtonAdd>
-    <ButtonUpdate
-      actionFlag={actionFlag}
-      setActionFlag={setActionFlag}
-      setIdTask={setIdTask}
-    ></ButtonUpdate>
-    <ButtonDelete actionFlag={actionFlag} setActionFlag={setActionFlag}></ButtonDelete>
-  </div>
-)
+export const Buttons = () => {
+  const { crudMode, taskID } = useSelector((state) => state.crudOperationMode)
 
-Buttons.propTypes = {
-  actionFlag: PropTypes.any,
-  setActionFlag: PropTypes.any,
-  setIdTask: PropTypes.any,
+  return (
+    <>
+      <div className={styles.flexButtons}>
+        <ButtonAdd />
+        <ButtonUpdate />
+        <ButtonDelete />
+      </div>
+      <FormUpdateTask />
+      {crudMode === 'DEL' && <div> Выберите задачу для удаления</div>}
+      {crudMode === 'UPD' && !taskID && <div> Выберите задачу для обновления</div>}
+    </>
+  )
 }

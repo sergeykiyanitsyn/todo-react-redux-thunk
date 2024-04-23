@@ -1,6 +1,5 @@
 export * from './Buttons'
-export * from './Form'
+export * from './Buttons/Form'
 export * from './Task'
 export * from './Loader'
-export * from './Message'
 export * from './AddFunctional'

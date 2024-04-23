@@ -1,9 +1,14 @@
 import styles from './Sorting.module.css'
 import PropTypes from 'prop-types'
+import { useSelector, useDispatch } from 'react-redux'
 
-export const Sorting = ({ sortOn, setSortOn }) => {
+export const Sorting = () => {
+  const { filter } = useSelector((state) => state.visibilityFilter)
+  const dispatch = useDispatch()
   const onClickSort = () => {
-    setSortOn(!sortOn)
+    filter === 'SHOW_ALL'
+      ? dispatch({ type: 'SET_ALPHABET_SORT' })
+      : dispatch({ type: 'SHOW_ALL' })
   }
 
   return (
@@ -17,7 +22,7 @@ export const Sorting = ({ sortOn, setSortOn }) => {
           type="click"
           onClick={onClickSort}
         >
-          {sortOn ? 'On' : 'Off'}
+          {filter === 'SORT_ON' ? 'On' : 'Off'}
         </button>
       </label>{' '}
     </div>
